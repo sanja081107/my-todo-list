@@ -7,12 +7,16 @@ var addTask = function() {
 	var listItem = document.createElement("li");
 	var checkBox = document.createElement("input");
 	var label = document.createElement("label");
+    var butt = document.createElement("button");
 
+    
+    butt.className = "delete"
 	checkBox.type = "checkbox";
-	label.innerHTML = taskInput.value;
+	label.innerHTML = (taskInput.value);
 
 	listItem.appendChild(checkBox);
 	listItem.appendChild(label);
+    listItem.appendChild(butt);
 
 	listItem.className = "taskList";
 
@@ -28,6 +32,7 @@ var addTask = function() {
 
 	//добавление отметки события в флажок, чтобы всякий раз, когда он //отмечен, задача удаляется 
 	checkBox.addEventListener("click", textDecoration);
+    butt.addEventListener("click", deleteItem);
 };
 
 
@@ -66,6 +71,16 @@ var textDecoration = function() {
     } 
 };
 
+var deleteItem = function() {
+
+	var listItem = this.parentNode;
+	var ul = listItem.parentNode;
+
+	//remove the parent list item from ul
+	ul.removeChild(listItem);
+};
+
+
 
 // Получаем ссылку на текстовое поле, изменение которого будем отслеживать. (не работает)
 var field = document.getElementsByTagName('input');
@@ -83,6 +98,7 @@ for(var i=0; i<field.length; i++){
             localStorage.setItem("autosave", listItem);
                     
 } 
+
 
 addList.addEventListener("click", addTask, false);
 delList.addEventListener("click", deleteTask, false);
